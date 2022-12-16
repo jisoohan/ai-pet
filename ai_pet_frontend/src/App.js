@@ -2,11 +2,12 @@ import "./App.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Buffer } from "buffer";
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
 import { Form } from "react-bootstrap";
 import features from "./features.json";
 import petSpeciesJson from "./petSpecies.json";
+import Home from "./home/Home";
 
 const empty_image =
   "https://ctl.s6img.com/society6/img/YsPHk-5FwM3a3m0-iUsyhkO9Qlc/w_700/mini-art-prints/4x4/nostand/front/~artwork,fw_1238,fh_1238,iw_1238,ih_1238/s6-original-art-uploads/society6/uploads/misc/231692acc28c485b9cb9a3e919ffdf33/~~/calico-cat1907816-mini-art-prints.jpg";
@@ -14,7 +15,6 @@ const empty_image =
 const loading_image = "https://i.pinimg.com/originals/71/3a/32/713a3272124cc57ba9e9fb7f59e9ab3b.gif";
 
 function App() {
-
   const [generated, setGenerated] = useState(false);
   const [pet, setPet] = useState({
     name: '',
@@ -23,7 +23,7 @@ function App() {
   });
 
   const [image, setImage] = useState(empty_image);
-  const [prompt, setPrompt] = useState('');
+  const [prompt, setPrompt] = useState("");
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -81,20 +81,24 @@ function App() {
               <Form onSubmit={handleSubmit}>
                 <Form.Group controlId="formPetName">
                   <Form.Label>Pet Name</Form.Label>
-                  <Form.Control name="name" type="text" value={pet.name} placeholder="Enter pet name" onChange={handleFormChange}/>
+                  <Form.Control
+                    name="name"
+                    type="text"
+                    value={pet.name}
+                    placeholder="Enter pet name"
+                    onChange={handleFormChange}
+                  />
                 </Form.Group>
 
                 <Form.Group controlId="formPetSpecies">
                   <Form.Label>Pet Species</Form.Label>
                   <select className="form-control" value={pet.species} name="species" onChange={handleFormChange}>
                     {petSpeciesJson.species.map((species, i) => {
-                      return (
-                        <option value={species} >{species}</option>
-                      );
+                      return <option value={species}>{species}</option>;
                     })}
                   </select>
                 </Form.Group>
-                <hr/>
+                <hr />
                 <Button type="submit" variant="primary">
                   Save Changes
                 </Button>
@@ -108,12 +112,8 @@ function App() {
           </Modal>
         </>
         <hr />
-        prompts: {prompt}
-        <hr />
         <div style={{ display: "flex", flexWrap: "wrap" }}>
-          {generated && Object.keys(features.maps).map((location) => {
-            const activities = features.maps[location];
-            const activity = activities[Math.floor(Math.random() * activities.length)];
+          {features.species.map((specie) => {
             return (
               <button
                 onClick={() => {
@@ -125,12 +125,37 @@ function App() {
                   setPet({ ...pet, traits: newTraits});
                 }}
               >
-                {location}
+                {specie}
               </button>
             );
           })}
         </div>
         <hr />
+        <div style={{ display: "flex", flexWrap: "wrap" }}>
+          {generated &&
+            Object.keys(features.maps).map((location) => {
+              const activities = features.maps[location];
+              const activity = activities[Math.floor(Math.random() * activities.length)];
+              return (
+                <button
+                  onClick={() => {
+                    setPrompt(pet.species + " " + activity + " at " + location);
+                  }}
+                >
+                  {location}
+                </button>
+              );
+            })}
+        </div>
+        <hr />
+        <button
+          onClick={() => {
+            setImage(loading_image);
+            generate(prompt);
+          }}
+        >
+          Generate
+        </button>
       </header>
     </div>
   );
