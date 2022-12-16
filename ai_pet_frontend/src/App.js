@@ -118,7 +118,7 @@ function App() {
                 onClick={() => {
                   setPrompt(pet.traits.join(" ") + " " + pet.species);
                   setImage(loading_image);
-                  generate(pet.species);
+                  generate(specie);
                 }}
               >
                 {specie}
