@@ -17,8 +17,9 @@ const loading_image = "https://i.pinimg.com/originals/71/3a/32/713a3272124cc57ba
 function App() {
   const [generated, setGenerated] = useState(false);
   const [pet, setPet] = useState({
-    name: "",
+    name: '',
     species: petSpeciesJson.species[0],
+    traits: []
   });
 
   const [image, setImage] = useState(empty_image);
@@ -29,8 +30,7 @@ function App() {
   const handleShow = () => setShow(true);
 
   const handleFormChange = (event) => {
-    console.log(event.target);
-    setPet({ ...pet, [event.target.name]: event.target.value });
+    setPet({ ...pet, [event.target.name]: event.target.value});
   };
 
   const handleSubmit = (event) => {
@@ -53,7 +53,6 @@ function App() {
   };
 
   useEffect(() => {
-    console.log(features);
   }, []);
 
   return (
@@ -64,13 +63,15 @@ function App() {
         <Button variant="primary" onClick={handleShow}>
           Generate pet!!!
         </Button>
-        {generated && (
-          <span>
-            Pet Name: {pet.name}
-            <br />
-            Pet Species: {pet.species}
-          </span>
-        )}
+        {generated &&
+            <span>
+              Pet Name: {pet.name}
+              <br/>
+              Pet Species: {pet.species}
+              <br/>
+              Pet Traits: {pet.traits.toString()}
+            </span>
+        }
         <>
           <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
@@ -116,8 +117,12 @@ function App() {
             return (
               <button
                 onClick={() => {
-                  setPet("disney " + specie);
-                  setPrompt(specie);
+                  setPrompt(pet.traits.join(" ") + " " + pet.species + " " + activity + " at " + location);
+                  setImage(loading_image);
+                  generate(pet.species);
+                  const newTraits = pet.traits;
+                  newTraits.push(activity);
+                  setPet({ ...pet, traits: newTraits});
                 }}
               >
                 {specie}
