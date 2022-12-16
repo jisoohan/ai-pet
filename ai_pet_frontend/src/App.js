@@ -17,9 +17,9 @@ const loading_image = "https://i.pinimg.com/originals/71/3a/32/713a3272124cc57ba
 function App() {
   const [generated, setGenerated] = useState(false);
   const [pet, setPet] = useState({
-    name: '',
+    name: "",
     species: petSpeciesJson.species[0],
-    traits: []
+    traits: [],
   });
 
   const [image, setImage] = useState(empty_image);
@@ -30,7 +30,7 @@ function App() {
   const handleShow = () => setShow(true);
 
   const handleFormChange = (event) => {
-    setPet({ ...pet, [event.target.name]: event.target.value});
+    setPet({ ...pet, [event.target.name]: event.target.value });
   };
 
   const handleSubmit = (event) => {
@@ -49,11 +49,11 @@ function App() {
         const image_data = Buffer.from(response.data, "binary").toString("base64");
         const image_file = `data:image/png;base64,${image_data}`;
         setImage(image_file);
+        setGenerated(true);
       });
   };
 
-  useEffect(() => {
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <div className="App">
@@ -63,15 +63,15 @@ function App() {
         <Button variant="primary" onClick={handleShow}>
           Generate pet!!!
         </Button>
-        {generated &&
-            <span>
-              Pet Name: {pet.name}
-              <br/>
-              Pet Species: {pet.species}
-              <br/>
-              Pet Traits: {pet.traits.toString()}
-            </span>
-        }
+        {generated && (
+          <span>
+            Pet Name: {pet.name}
+            <br />
+            Pet Species: {pet.species}
+            <br />
+            Pet Traits: {pet.traits.toString()}
+          </span>
+        )}
         <>
           <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
@@ -120,12 +120,12 @@ function App() {
               return (
                 <button
                   onClick={() => {
-                  setPrompt(pet.traits.join(" ") + " " + pet.species + " " + activity + " at " + location);
-                  setImage(loading_image);
-                  generate(prompt);
-                  const newTraits = pet.traits;
-                  newTraits.push(activity);
-                  setPet({ ...pet, traits: newTraits});
+                    setPrompt(pet.traits.join(" ") + " " + pet.species + " " + activity + " at " + location);
+                    setImage(loading_image);
+                    generate(prompt);
+                    const newTraits = pet.traits;
+                    newTraits.push(activity);
+                    setPet({ ...pet, traits: newTraits});
                   }}
                 >
                   {location}
