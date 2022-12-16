@@ -122,7 +122,7 @@ function App() {
                   onClick={() => {
                   setPrompt(pet.traits.join(" ") + " " + pet.species + " " + activity + " at " + location);
                   setImage(loading_image);
-                  generate(pet.species);
+                  generate(prompt);
                   const newTraits = pet.traits;
                   newTraits.push(activity);
                   setPet({ ...pet, traits: newTraits});
@@ -133,15 +133,6 @@ function App() {
               );
             })}
         </div>
-        <hr />
-        <button
-          onClick={() => {
-            setImage(loading_image);
-            generate(prompt);
-          }}
-        >
-          Generate
-        </button>
       </header>
     </div>
   );
