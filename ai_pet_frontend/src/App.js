@@ -10,8 +10,10 @@ const empty_image =
 const loading_image = "https://i.pinimg.com/originals/71/3a/32/713a3272124cc57ba9e9fb7f59e9ab3b.gif";
 
 function App() {
+  const pet = "cat";
+
   const [image, setImage] = useState(empty_image);
-  const [prompt, setPrompt] = useState("cat");
+  const [prompt, setPrompt] = useState(pet);
 
   const generate = async (prompt) => {
     axios
@@ -40,7 +42,7 @@ function App() {
           return (
             <button
               onClick={() => {
-                setPrompt(prompt + " " + activity + " at " + location);
+                setPrompt(pet + " " + activity + " at " + location);
               }}
             >
               {location}
