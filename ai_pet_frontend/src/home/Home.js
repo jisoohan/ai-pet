@@ -5,11 +5,9 @@ export default function Home(props) {
     <div>
       <div
         style={{
-          width: "100%",
-          height: "100%",
+          width: "1920px",
+          height: "1080px",
           position: "absolute",
-          left: "0px",
-          top: "0px",
           background: "rgb(208, 176, 176)",
           overflow: "hidden",
         }}
@@ -74,7 +72,7 @@ export default function Home(props) {
             style={{
               position: "absolute",
               left: "798px",
-              top: "70px",
+              top: "131px",
               width: "300px",
               textAlign: "left",
               verticalAlign: "top",
@@ -202,7 +200,7 @@ export default function Home(props) {
             style={{
               position: "absolute",
               left: "1581px",
-              top: "830px",
+              top: "897px",
               textAlign: "left",
               verticalAlign: "top",
               display: "flex",
