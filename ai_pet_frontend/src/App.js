@@ -17,20 +17,22 @@ const loading_image = "https://i.pinimg.com/originals/71/3a/32/713a3272124cc57ba
 function App() {
   const [generated, setGenerated] = useState(false);
   const [pet, setPet] = useState({
-    name: '',
+    name: "",
     species: petSpeciesJson.species[0],
-    traits: []
+    traits: [],
   });
 
   const [image, setImage] = useState(empty_image);
   const [prompt, setPrompt] = useState("");
+  const [activity, setActivity] = useState("");
+  const [location, setLocation] = useState("");
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   const handleFormChange = (event) => {
-    setPet({ ...pet, [event.target.name]: event.target.value});
+    setPet({ ...pet, [event.target.name]: event.target.value });
   };
 
   const handleSubmit = (event) => {
@@ -52,8 +54,7 @@ function App() {
       });
   };
 
-  useEffect(() => {
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <div className="App">
@@ -63,15 +64,15 @@ function App() {
         <Button variant="primary" onClick={handleShow}>
           Generate pet!!!
         </Button>
-        {generated &&
-            <span>
-              Pet Name: {pet.name}
-              <br/>
-              Pet Species: {pet.species}
-              <br/>
-              Pet Traits: {pet.traits.toString()}
-            </span>
-        }
+        {generated && (
+          <span>
+            Pet Name: {pet.name}
+            <br />
+            Pet Species: {pet.species}
+            <br />
+            Pet Traits: {pet.traits.toString()}
+          </span>
+        )}
         <>
           <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
@@ -122,7 +123,7 @@ function App() {
                   generate(pet.species);
                   const newTraits = pet.traits;
                   newTraits.push(activity);
-                  setPet({ ...pet, traits: newTraits});
+                  setPet({ ...pet, traits: newTraits });
                 }}
               >
                 {specie}
@@ -135,7 +136,8 @@ function App() {
           {generated &&
             Object.keys(features.maps).map((location) => {
               const activities = features.maps[location];
-              const activity = activities[Math.floor(Math.random() * activities.length)];
+              setActivity(activities[Math.floor(Math.random() * activities.length)]);
+              setLocation(location);
               return (
                 <button
                   onClick={() => {
