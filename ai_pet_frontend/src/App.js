@@ -49,6 +49,7 @@ function App() {
         const image_data = Buffer.from(response.data, "binary").toString("base64");
         const image_file = `data:image/png;base64,${image_data}`;
         setImage(image_file);
+        setGenerated(true);
       });
   };
 
