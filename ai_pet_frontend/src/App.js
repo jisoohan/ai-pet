@@ -8,6 +8,7 @@ import { Form } from "react-bootstrap";
 import features from "./features.json";
 import petSpeciesJson from "./petSpecies.json";
 import Home from "./home/Home";
+import titleMusic from "./title_music.webm";
 
 const empty_image =
   "https://ctl.s6img.com/society6/img/YsPHk-5FwM3a3m0-iUsyhkO9Qlc/w_700/mini-art-prints/4x4/nostand/front/~artwork,fw_1238,fh_1238,iw_1238,ih_1238/s6-original-art-uploads/society6/uploads/misc/231692acc28c485b9cb9a3e919ffdf33/~~/calico-cat1907816-mini-art-prints.jpg";
@@ -38,7 +39,7 @@ function App() {
     event.preventDefault();
     setGenerated(true);
     setImage(loading_image);
-    generate(pet.species);
+    generate("cartoon " + pet.species);
     handleClose();
   };
 
@@ -57,6 +58,10 @@ function App() {
 
   return (
     <div className="App">
+      <audio controls autoPlay loop>
+        <source src={titleMusic} type="audio/ogg"></source>
+        <source src={titleMusic} type="audio/mpeg"></source>
+      </audio>
       <header className="App-header">
         <img src={image} className="" alt="logo" style={{ width: "512px", height: "512px" }} />
         <hr />
@@ -118,18 +123,25 @@ function App() {
               const activities = features.maps[location];
               const activity = activities[Math.floor(Math.random() * activities.length)];
               return (
-                <button
+                <Button
                   onClick={() => {
-                    setPrompt(pet.traits.join(" ") + " " + pet.species + " " + activity + " at " + location);
+                    let currPrompt;
+                    if (pet.traits.length === 0) {
+                      currPrompt = "cartoon" + " " + pet.species + " " + activity + " at " + location;
+                    } else {
+                      currPrompt = "(".repeat(pet.traits.length) + "cartoon" + " " + pet.species + ")".repeat(pet.traits.length) + " " + pet.traits.join(" ") + " " + activity + " at " + location;
+                    }
+                    setPrompt(currPrompt);
                     setImage(loading_image);
-                    generate(prompt);
+                    generate(currPrompt);
+                    console.log(currPrompt);
                     const newTraits = pet.traits;
                     newTraits.push(activity);
                     setPet({ ...pet, traits: newTraits});
                   }}
                 >
                   {location}
-                </button>
+                </Button>
               );
             })}
         </div>
