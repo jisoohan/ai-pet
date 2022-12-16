@@ -53,5 +53,22 @@
     "Ranch": ["exploring", "riding horses", "enjoying nature"],
     "Zipline course": ["excited", "adrenaline-filled", "thrilled"],
     "Rock climbing gym": ["exercising", "challenging oneself", "adrenaline-filled"]
-  }
+  },
+  "species": [
+    "Dog",
+    "Cat",
+    "Rabbit ",
+    "Fish ",
+    "Rock ",
+    "Plant ",
+    "Horse ",
+    "Cow ",
+    "Sheep ",
+    "Penguin ",
+    "Shark ",
+    "Jellyfish ",
+    "Steak ",
+    "Bread ",
+    "Ghost "
+  ]
 }

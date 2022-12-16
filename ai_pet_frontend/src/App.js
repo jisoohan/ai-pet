@@ -20,6 +20,7 @@ function App() {
     name: '',
     species: petSpeciesJson.species[0]
   });
+
   const [image, setImage] = useState(empty_image);
   const [prompt, setPrompt] = useState('');
   const [show, setShow] = useState(false);
@@ -108,19 +109,21 @@ function App() {
         <hr />
         prompts: {prompt}
         <hr />
-        {generated && Object.keys(features.maps).map((location) => {
-          const activities = features.maps[location];
-          const activity = activities[Math.floor(Math.random() * activities.length)];
-          return (
-            <button
-              onClick={() => {
-                setPrompt(pet.species + " " + activity + " at " + location);
-              }}
-            >
-              {location}
-            </button>
-          );
-        })}
+        <div style={{ display: "flex", flexWrap: "wrap" }}>
+          {generated && Object.keys(features.maps).map((location) => {
+            const activities = features.maps[location];
+            const activity = activities[Math.floor(Math.random() * activities.length)];
+            return (
+              <button
+                onClick={() => {
+                  setPrompt(pet.species + " " + activity + " at " + location);
+                }}
+              >
+                {location}
+              </button>
+            );
+          })}
+        </div>
         <hr />
       </header>
     </div>
