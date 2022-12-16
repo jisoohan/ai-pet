@@ -3,6 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Buffer } from "buffer";
 import features from "./features.json";
+import Home from "./home/Home";
 
 const empty_image =
   "https://ctl.s6img.com/society6/img/YsPHk-5FwM3a3m0-iUsyhkO9Qlc/w_700/mini-art-prints/4x4/nostand/front/~artwork,fw_1238,fh_1238,iw_1238,ih_1238/s6-original-art-uploads/society6/uploads/misc/231692acc28c485b9cb9a3e919ffdf33/~~/calico-cat1907816-mini-art-prints.jpg";
@@ -31,7 +32,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={image} className="" alt="logo" style={{ width: "512px", height: "512px" }} />
+        {/* <img src={image} className="" alt="logo" style={{ width: "512px", height: "512px" }} />
         <hr />
         prompts: {prompt}
         <hr />
@@ -40,7 +41,7 @@ function App() {
             return (
               <button
                 onClick={() => {
-                  setPet(specie);
+                  setPet("disney " + specie);
                   setPrompt(specie);
                 }}
               >
@@ -73,7 +74,8 @@ function App() {
           }}
         >
           Generate
-        </button>
+        </button> */}
+        <Home />
       </header>
     </div>
   );
