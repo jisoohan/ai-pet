@@ -24,8 +24,6 @@ function App() {
 
   const [image, setImage] = useState(empty_image);
   const [prompt, setPrompt] = useState("");
-  const [activity, setActivity] = useState("");
-  const [location, setLocation] = useState("");
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -118,12 +116,9 @@ function App() {
             return (
               <button
                 onClick={() => {
-                  setPrompt(pet.traits.join(" ") + " " + pet.species + " " + activity + " at " + location);
+                  setPrompt(pet.traits.join(" ") + " " + pet.species);
                   setImage(loading_image);
                   generate(pet.species);
-                  const newTraits = pet.traits;
-                  newTraits.push(activity);
-                  setPet({ ...pet, traits: newTraits });
                 }}
               >
                 {specie}
@@ -136,12 +131,14 @@ function App() {
           {generated &&
             Object.keys(features.maps).map((location) => {
               const activities = features.maps[location];
-              setActivity(activities[Math.floor(Math.random() * activities.length)]);
-              setLocation(location);
+              const activity = activities[Math.floor(Math.random() * activities.length)];
               return (
                 <button
                   onClick={() => {
                     setPrompt(pet.species + " " + activity + " at " + location);
+                    const newTraits = pet.traits;
+                    newTraits.push(activity);
+                    setPet({ ...pet, traits: newTraits });
                   }}
                 >
                   {location}
