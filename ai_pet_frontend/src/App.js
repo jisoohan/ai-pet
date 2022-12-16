@@ -36,19 +36,21 @@ function App() {
         <hr />
         prompts: {prompt}
         <hr />
-        {Object.keys(features.maps).map((location) => {
-          const activities = features.maps[location];
-          const activity = activities[Math.floor(Math.random() * activities.length)];
-          return (
-            <button
-              onClick={() => {
-                setPrompt(pet + " " + activity + " at " + location);
-              }}
-            >
-              {location}
-            </button>
-          );
-        })}
+        <div style={{ display: "flex", flexWrap: "wrap" }}>
+          {Object.keys(features.maps).map((location) => {
+            const activities = features.maps[location];
+            const activity = activities[Math.floor(Math.random() * activities.length)];
+            return (
+              <button
+                onClick={() => {
+                  setPrompt(pet + " " + activity + " at " + location);
+                }}
+              >
+                {location}
+              </button>
+            );
+          })}
+        </div>
         <hr />
         <button
           onClick={() => {
