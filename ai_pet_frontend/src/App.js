@@ -59,18 +59,18 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        {/* <img src={image} className="" alt="logo" style={{ width: "512px", height: "512px" }} />
+        <img src={image} className="" alt="logo" style={{ width: "512px", height: "512px" }} />
         <hr />
         <Button variant="primary" onClick={handleShow}>
           Generate pet!!!
         </Button>
-        {generated &&
-            <span>
-              Pet Name: {pet.name}
-              <br/>
-              Pet Species: {pet.species}
-            </span>
-        }
+        {generated && (
+          <span>
+            Pet Name: {pet.name}
+            <br />
+            Pet Species: {pet.species}
+          </span>
+        )}
         <>
           <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
@@ -80,20 +80,24 @@ function App() {
               <Form onSubmit={handleSubmit}>
                 <Form.Group controlId="formPetName">
                   <Form.Label>Pet Name</Form.Label>
-                  <Form.Control name="name" type="text" value={pet.name} placeholder="Enter pet name" onChange={handleFormChange}/>
+                  <Form.Control
+                    name="name"
+                    type="text"
+                    value={pet.name}
+                    placeholder="Enter pet name"
+                    onChange={handleFormChange}
+                  />
                 </Form.Group>
 
                 <Form.Group controlId="formPetSpecies">
                   <Form.Label>Pet Species</Form.Label>
                   <select className="form-control" value={pet.species} name="species" onChange={handleFormChange}>
                     {petSpeciesJson.species.map((species, i) => {
-                      return (
-                        <option value={species} >{species}</option>
-                      );
+                      return <option value={species}>{species}</option>;
                     })}
                   </select>
                 </Form.Group>
-                <hr/>
+                <hr />
                 <Button type="submit" variant="primary">
                   Save Changes
                 </Button>
@@ -123,19 +127,20 @@ function App() {
         </div>
         <hr />
         <div style={{ display: "flex", flexWrap: "wrap" }}>
-          {generated && Object.keys(features.maps).map((location) => {
-            const activities = features.maps[location];
-            const activity = activities[Math.floor(Math.random() * activities.length)];
-            return (
-              <button
-                onClick={() => {
-                  setPrompt(pet.species + " " + activity + " at " + location);
-                }}
-              >
-                {location}
-              </button>
-            );
-          })}
+          {generated &&
+            Object.keys(features.maps).map((location) => {
+              const activities = features.maps[location];
+              const activity = activities[Math.floor(Math.random() * activities.length)];
+              return (
+                <button
+                  onClick={() => {
+                    setPrompt(pet.species + " " + activity + " at " + location);
+                  }}
+                >
+                  {location}
+                </button>
+              );
+            })}
         </div>
         <hr />
         <button
@@ -145,8 +150,7 @@ function App() {
           }}
         >
           Generate
-        </button> */}
-        <Home />
+        </button>
       </header>
     </div>
   );
