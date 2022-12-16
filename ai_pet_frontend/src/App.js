@@ -113,25 +113,6 @@ function App() {
         </>
         <hr />
         <div style={{ display: "flex", flexWrap: "wrap" }}>
-          {features.species.map((specie) => {
-            return (
-              <button
-                onClick={() => {
-                  setPrompt(pet.traits.join(" ") + " " + pet.species + " " + activity + " at " + location);
-                  setImage(loading_image);
-                  generate(pet.species);
-                  const newTraits = pet.traits;
-                  newTraits.push(activity);
-                  setPet({ ...pet, traits: newTraits});
-                }}
-              >
-                {specie}
-              </button>
-            );
-          })}
-        </div>
-        <hr />
-        <div style={{ display: "flex", flexWrap: "wrap" }}>
           {generated &&
             Object.keys(features.maps).map((location) => {
               const activities = features.maps[location];
@@ -139,7 +120,12 @@ function App() {
               return (
                 <button
                   onClick={() => {
-                    setPrompt(pet.species + " " + activity + " at " + location);
+                  setPrompt(pet.traits.join(" ") + " " + pet.species + " " + activity + " at " + location);
+                  setImage(loading_image);
+                  generate(pet.species);
+                  const newTraits = pet.traits;
+                  newTraits.push(activity);
+                  setPet({ ...pet, traits: newTraits});
                   }}
                 >
                   {location}
