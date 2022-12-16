@@ -1,7 +1,8 @@
 import "./App.css";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Buffer } from "buffer";
+import features from "./features.json";
 
 const empty_image =
   "https://ctl.s6img.com/society6/img/YsPHk-5FwM3a3m0-iUsyhkO9Qlc/w_700/mini-art-prints/4x4/nostand/front/~artwork,fw_1238,fh_1238,iw_1238,ih_1238/s6-original-art-uploads/society6/uploads/misc/231692acc28c485b9cb9a3e919ffdf33/~~/calico-cat1907816-mini-art-prints.jpg";
@@ -10,6 +11,7 @@ const loading_image = "https://i.pinimg.com/originals/71/3a/32/713a3272124cc57ba
 
 function App() {
   const [image, setImage] = useState(empty_image);
+  const [prompt, setPrompt] = useState("cat");
 
   const generate = async (prompt) => {
     axios
@@ -21,15 +23,35 @@ function App() {
       });
   };
 
+  useEffect(() => {
+    console.log(features);
+  }, []);
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={image} className="" alt="logo" />
+        <img src={image} className="" alt="logo" style={{ width: "512px", height: "512px" }} />
+        <hr />
+        prompts: {prompt}
+        <hr />
+        {Object.keys(features.maps).map((location) => {
+          const activities = features.maps[location];
+          const activity = activities[Math.floor(Math.random() * activities.length)];
+          return (
+            <button
+              onClick={() => {
+                setPrompt(prompt + " " + activity + " at " + location);
+              }}
+            >
+              {location}
+            </button>
+          );
+        })}
         <hr />
         <button
           onClick={() => {
             setImage(loading_image);
-            generate("cat");
+            generate(prompt);
           }}
         >
           Generate
