@@ -10,8 +10,7 @@ const empty_image =
 const loading_image = "https://i.pinimg.com/originals/71/3a/32/713a3272124cc57ba9e9fb7f59e9ab3b.gif";
 
 function App() {
-  const pet = "cat";
-
+  const [pet, setPet] = useState("");
   const [image, setImage] = useState(empty_image);
   const [prompt, setPrompt] = useState(pet);
 
@@ -35,6 +34,21 @@ function App() {
         <img src={image} className="" alt="logo" style={{ width: "512px", height: "512px" }} />
         <hr />
         prompts: {prompt}
+        <hr />
+        <div style={{ display: "flex", flexWrap: "wrap" }}>
+          {features.species.map((specie) => {
+            return (
+              <button
+                onClick={() => {
+                  setPet(specie);
+                  setPrompt(specie);
+                }}
+              >
+                {specie}
+              </button>
+            );
+          })}
+        </div>
         <hr />
         <div style={{ display: "flex", flexWrap: "wrap" }}>
           {Object.keys(features.maps).map((location) => {
