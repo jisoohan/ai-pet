@@ -9,6 +9,8 @@ import features from "./features.json";
 import petSpeciesJson from "./petSpecies.json";
 import Home from "./home/Home";
 import titleMusic from "./title_music.webm";
+import titlePic from "./Title.png";
+import mapPic from "./Map.png";
 
 const empty_image =
   "https://ctl.s6img.com/society6/img/YsPHk-5FwM3a3m0-iUsyhkO9Qlc/w_700/mini-art-prints/4x4/nostand/front/~artwork,fw_1238,fh_1238,iw_1238,ih_1238/s6-original-art-uploads/society6/uploads/misc/231692acc28c485b9cb9a3e919ffdf33/~~/calico-cat1907816-mini-art-prints.jpg";
@@ -23,7 +25,7 @@ function App() {
     traits: [],
   });
 
-  const [image, setImage] = useState(empty_image);
+  const [image, setImage] = useState(titlePic);
   const [prompt, setPrompt] = useState("");
   const [show, setShow] = useState(false);
 
@@ -63,7 +65,7 @@ function App() {
         <source src={titleMusic} type="audio/mpeg"></source>
       </audio>
       <header className="App-header">
-        <img src={image} className="" alt="logo" style={{ width: "512px", height: "512px" }} />
+        <img src={image} className="" alt="logo" style={{ height: "100%" }} />
         <hr />
         <Button variant="primary" onClick={handleShow}>
           Generate pet!!!
@@ -117,6 +119,9 @@ function App() {
           </Modal>
         </>
         <hr />
+        {generated &&
+          <img src={mapPic} className="" alt="logo" style={{ height: "75%" }} />
+        }
         <div style={{ display: "flex", flexWrap: "wrap" }}>
           {generated &&
             Object.keys(features.maps).map((location) => {
