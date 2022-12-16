@@ -18,7 +18,8 @@ function App() {
   const [generated, setGenerated] = useState(false);
   const [pet, setPet] = useState({
     name: '',
-    species: petSpeciesJson.species[0]
+    species: petSpeciesJson.species[0],
+    traits: []
   });
 
   const [image, setImage] = useState(empty_image);
@@ -29,7 +30,6 @@ function App() {
   const handleShow = () => setShow(true);
 
   const handleFormChange = (event) => {
-    console.log(event.target);
     setPet({ ...pet, [event.target.name]: event.target.value});
   };
 
@@ -53,7 +53,6 @@ function App() {
   };
 
   useEffect(() => {
-    console.log(features);
   }, []);
 
   return (
@@ -69,6 +68,8 @@ function App() {
               Pet Name: {pet.name}
               <br/>
               Pet Species: {pet.species}
+              <br/>
+              Pet Traits: {pet.traits.toString()}
             </span>
         }
         <>
@@ -116,7 +117,12 @@ function App() {
             return (
               <button
                 onClick={() => {
-                  setPrompt(pet.species + " " + activity + " at " + location);
+                  setPrompt(pet.traits.join(" ") + " " + pet.species + " " + activity + " at " + location);
+                  setImage(loading_image);
+                  generate(pet.species);
+                  const newTraits = pet.traits;
+                  newTraits.push(activity);
+                  setPet({ ...pet, traits: newTraits});
                 }}
               >
                 {location}
